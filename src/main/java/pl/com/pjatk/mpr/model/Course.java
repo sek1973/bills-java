@@ -3,6 +3,7 @@ package pl.com.pjatk.mpr.model;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class Course {
@@ -10,17 +11,19 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String courseName;
-    @JoinColumn(name ="student_id")
-    @ManyToOne
-    @JsonIgnore
-    private Student student;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", orphanRemoval = true)
+    private List<Student> students = new ArrayList<>();
+
     public Course() {
     }
     public Course(String courseName) {
         this.courseName = courseName;
-        this.student = student;
-    }
 
+    }
+    public Course(String courseName, List<Student> students) {
+        this.courseName = courseName;
+        this.students = students;
+    }
     public Long getId() {
         return id;
     }
@@ -35,5 +38,13 @@ public class Course {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

@@ -34,15 +34,11 @@ public class StudentService {
         return student;
     }
 
-    public Student assignStudentToACourse(String studentId){
 
-        Student studentAssigned = studentRepository.findByStudentId(studentId).get();
 
-        studentAssigned = CourseService.assignCourse(studentAssigned);
-
-        return studentRepository.save(studentAssigned);
+    public Optional<Student> findStudentByCourse(String courseName){
+        return studentRepository.getStudentByCourseName(courseName);
     }
-
 
 
 }

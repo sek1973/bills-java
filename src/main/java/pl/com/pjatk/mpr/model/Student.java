@@ -1,31 +1,36 @@
 package pl.com.pjatk.mpr.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 
 @Entity
 public class Student {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String studentId;
     private String firstName;
     private String secondName;
-    private String courseName;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    @JsonIgnore
+    private Course course;
+
+    @OneToOne
+    @JoinColumn(name = "grades_id", referencedColumnName = "id")
+    private Grade grade;
+
 
     public Student() {
     }
 
-    public Student(String studentId, String firstName, String secondName, String courseName) {
+    public Student(String studentId, String firstName, String secondName, Grade grade) {
         this.studentId = studentId;
         this.firstName = firstName;
         this.secondName = secondName;
-        this.courseName = courseName;
-    }
-
-    public Student(String studentId, String firstName, String secondName) {
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.secondName = secondName;
+        this.grade = grade;
     }
 
     public Long getId() {
@@ -60,11 +65,9 @@ public class Student {
         this.secondName = secondName;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
+
+
+
+
 }

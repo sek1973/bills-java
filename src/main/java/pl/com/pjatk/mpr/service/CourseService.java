@@ -30,19 +30,4 @@ public class CourseService {
         return courseRepository.findCourseByCourseName(courseName);
     }
 
-    public static Student assignCourse(Student student) {
-        String pattern1 = "^group+[1].*";
-        String pattern2 = "^group+[2].*";
-
-        if (student.getStudentId().matches(pattern1)) {
-            student.setCourseName("course1");
-        } else if (student.getStudentId().matches(pattern2)) {
-            student.setCourseName("course2");
-        } else {
-
-            student.setCourseName("000");
-        }
-        return student;
-    }
-
 }

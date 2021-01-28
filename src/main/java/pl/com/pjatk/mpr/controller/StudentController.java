@@ -19,31 +19,25 @@ public class StudentController {
     }
 
     @GetMapping("/student")
-    public ResponseEntity<List<Student>> findAll(){
+    public ResponseEntity<List<Student>> findAll() {
         return ResponseEntity.ok(studentService.findAll());
     }
 
+
+    @PostMapping("/student")
+    public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
+        return ResponseEntity.ok(studentService.saveStudent(student));
+    }
+
     @GetMapping("/student/{studentId}")
-    public ResponseEntity<Student> findByStudentId(@PathVariable String studentId){
+    public ResponseEntity<Student> findByStudentId(@PathVariable String studentId) {
         Optional<Student> byStudentId = studentService.findByStudentId(studentId);
-        if (byStudentId.isPresent()){
+        if (byStudentId.isPresent()) {
             return ResponseEntity.ok(byStudentId.get());
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @PostMapping("/student")
-    public ResponseEntity<Student> saveStudent(@RequestBody Student student){
-        return ResponseEntity.ok(studentService.saveStudent(student));
-    }
-
-
-//    @GetMapping("/course/{studentId}")
-//    public ResponseEntity<Student> assignCourseToStudent(@PathVariable String studentId ){
-//        return ResponseEntity.ok(studentService.assignStudentToACourse(studentId));
-//    }
-
 
 
     @GetMapping("/course")
@@ -65,4 +59,6 @@ public class StudentController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 }
