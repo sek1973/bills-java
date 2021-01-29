@@ -11,8 +11,9 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String courseName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", orphanRemoval = true)
-    private List<Student> students = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", orphanRemoval = true, targetEntity = Student.class)
+
+    private List<Student> students;
 
     public Course() {
     }
