@@ -1,11 +1,11 @@
-package pl.com.pjatk.mpr.model;
+package bills.java.model;
 
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
 @Entity
-public class Student {
+public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,23 +14,21 @@ public class Student {
     private String secondName;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
     @JsonIgnore
-    private Course course;
+    private Bill bill;
 
     @OneToOne
     @JoinColumn(name = "grades_id", referencedColumnName = "id")
-    private Grade grade;
+    private Payment payment;
 
-
-    public Student() {
+    public Schedule() {
     }
 
-    public Student(String studentId, String firstName, String secondName, Grade grade) {
+    public Schedule(String studentId, String firstName, String secondName, Payment payment) {
         this.studentId = studentId;
         this.firstName = firstName;
         this.secondName = secondName;
-        this.grade = grade;
+        this.payment = payment;
     }
 
     public Long getId() {
@@ -65,9 +63,22 @@ public class Student {
         this.secondName = secondName;
     }
 
+    public Bill getCourse() {
+        return this.bill;
+    }
 
+    public void setCourse(Bill bill) {
+        this.bill = bill;
+    }
 
+    @Transient
+    private String courseName;
+    public String getCourseName() {
+        return this.courseName == null ? getCourse().getCourseName() : this.courseName;
+    }
 
-
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
 }

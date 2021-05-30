@@ -1,4 +1,4 @@
-package pl.com.pjatk.mpr;
+package bills.java;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

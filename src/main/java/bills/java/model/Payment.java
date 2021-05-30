@@ -1,4 +1,4 @@
-package pl.com.pjatk.mpr.model;
+package bills.java.model;
 
 import com.fasterxml.jackson.annotation.*;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class Grade {
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,12 +17,12 @@ public class Grade {
 
     @OneToOne(mappedBy = "grade")
     @JsonIgnore
-    private Student student;
+    private Schedule schedule;
 
-    public Grade() {
+    public Payment() {
     }
 
-    public Grade(double gradeA, double gradeB) {
+    public Payment(double gradeA, double gradeB) {
         this.gradeA = gradeA;
         this.gradeB = gradeB;
 
