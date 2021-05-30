@@ -24,20 +24,16 @@ public class BillService {
         return courseRepository.findAll();
     }
 
-    public Bill saveCourse(Bill bill){
+    public Bill save(Bill bill){
         courseRepository.save(bill);
         return bill;
     }
 
-    public Optional<Bill> findByCourseName(String courseName){
-        return courseRepository.findCourseByCourseName(courseName);
-    }
-
     @Transactional
-    public ResponseEntity<Object> addCourse(Bill bill) {
+    public ResponseEntity<Object> add(Bill bill) {
         Bill newBill = new Bill();
-        newBill.setCourseName(bill.getCourseName());
-        newBill.setStudents(bill.getStudents());
+        newBill.setName(bill.getName());
+        newBill.setSchedules(bill.getSchedules());
         Bill savedBill = courseRepository.save(newBill);
 
         if (courseRepository.findById(savedBill.getId()).isPresent()) {
@@ -46,7 +42,7 @@ public class BillService {
             return ResponseEntity.unprocessableEntity().body("Failed to Create specified Course");
     }
 
-    public ResponseEntity<Object> deleteCourse(Long id) {
+    public ResponseEntity<Object> delete(Long id) {
         if (courseRepository.findById(id).isPresent()) {
             courseRepository.deleteById(id);
             if (courseRepository.findById(id).isPresent()) {

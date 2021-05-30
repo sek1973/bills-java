@@ -15,7 +15,7 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @GetMapping("/student/details/{id}")
+    @GetMapping("/payment/details/{id}")
     public Schedule getStudent(@PathVariable Long id) {
         if(paymentService.findById(id).isPresent()) {
             return paymentService.findById(id).get();
@@ -24,12 +24,12 @@ public class PaymentController {
         }
     }
 
-    @GetMapping("/student/all")
+    @GetMapping("/payment/all")
     public List<Schedule> getStudents() {
         return paymentService.findAll();
     }
 
-    @PostMapping("/student/create")
+    @PostMapping("/payment/create")
     public ResponseEntity<Object> createStudent(@RequestBody Schedule schedule) {
         return  paymentService.addStudent(schedule);
     }

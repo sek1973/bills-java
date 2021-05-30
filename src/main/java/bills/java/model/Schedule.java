@@ -3,82 +3,47 @@ package bills.java.model;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.util.Currency;
+import java.util.Date;
 
 @Entity
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String studentId;
-    private String firstName;
-    private String secondName;
+    private Date date;
+    private Currency sum;
+    public String remarks;
+    public Long billId;
 
     @ManyToOne
     @JsonIgnore
     private Bill bill;
 
-    @OneToOne
-    @JoinColumn(name = "grades_id", referencedColumnName = "id")
-    private Payment payment;
-
-    public Schedule() {
-    }
-
-    public Schedule(String studentId, String firstName, String secondName, Payment payment) {
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.payment = payment;
-    }
+    public Schedule() { }
 
     public Long getId() {
         return id;
     }
+    public void setId(Long val) { this.id = val; }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Date getDate() {
+        return date;
     }
+    public void setDate(Date val) { this.date = val; }
 
-    public String getStudentId() {
-        return studentId;
+    public Currency getSum() {
+        return sum;
     }
+    public void setSum(Currency val) { this.sum = val; }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public String getRemarks() {
+        return remarks;
     }
+    public void setRemarks(String val) { this.remarks = val; }
 
-    public String getFirstName() {
-        return firstName;
+    public Long getBillId() {
+        return billId;
     }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    public Bill getCourse() {
-        return this.bill;
-    }
-
-    public void setCourse(Bill bill) {
-        this.bill = bill;
-    }
-
-    @Transient
-    private String courseName;
-    public String getCourseName() {
-        return this.courseName == null ? getCourse().getCourseName() : this.courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
+    public void setBillId(Long val) { this.billId = val; }
 }

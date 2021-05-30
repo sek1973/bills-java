@@ -3,6 +3,8 @@ package bills.java.model;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.util.Currency;
+import java.util.Date;
 
 @Entity
 @Table
@@ -10,46 +12,49 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Date deadline;
+    private Currency sum;
+    private Currency share;
+    private Date paidDate;
+    public String remarks;
+    public Long billId;
 
-    private double gradeA;
-    private double gradeB;
-
-
-    @OneToOne(mappedBy = "grade")
-    @JsonIgnore
-    private Schedule schedule;
-
-    public Payment() {
-    }
-
-    public Payment(double gradeA, double gradeB) {
-        this.gradeA = gradeA;
-        this.gradeB = gradeB;
-
-    }
+    public Payment() { }
 
     public Long getId() {
         return id;
     }
+    public void setId(Long val) { this.id = val; }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Date getDeadline() {
+        return deadline;
     }
+    public void setDeadline(Date val) { this.deadline = val; }
 
-    public double getGradeA() {
-        return gradeA;
+    public Currency getSum() {
+        return sum;
     }
+    public void setSum(Currency val) { this.sum = val; }
 
-    public void setGradeA(double gradeA) {
-        this.gradeA = gradeA;
+    public Currency getShare() {
+        return share;
     }
+    public void setShare(Currency val) { this.share = val; }
 
-    public double getGradeB() {
-        return gradeB;
+    public Date getPaidDate() {
+        return paidDate;
     }
+    public void setPaidDate(Date val) { this.paidDate = val; }
 
-    public void setGradeB(double gradeB) {
-        this.gradeB = gradeB;
+    public String getRemarks() {
+        return remarks;
     }
+    public void setRemarks(String val) { this.remarks = val; }
+
+    public Long getBillId() {
+        return billId;
+    }
+    public void setBillId(Long val) { this.billId = val; }
+
 }
 

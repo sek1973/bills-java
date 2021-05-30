@@ -15,22 +15,22 @@ public class ScheduleController {
         this.courseService = courseService;
     }
 
-    @PostMapping("/course/create")
+    @PostMapping("/schedule/create")
     public ResponseEntity<Object> createRole(@RequestBody Bill bill) {
-        return  courseService.addCourse(bill);
+        return  courseService.add(bill);
     }
 
-    @DeleteMapping("/course/delete/{id}")
+    @DeleteMapping("/schedule/delete/{id}")
     public ResponseEntity<Object> deleteRole(@PathVariable Long id) {
-        return courseService.deleteCourse(id);
+        return courseService.delete(id);
     }
 
-    @GetMapping("/course/all")
+    @GetMapping("/schedule/all")
     public ResponseEntity<List<Bill>> findAllCourses() {
         return ResponseEntity.ok(courseService.findAll());
     }
 
-    @GetMapping("/course/{courseName}")
+    @GetMapping("/schedule/{courseName}")
     public ResponseEntity<Bill> findByCourseId(@PathVariable String courseName) {
         Optional<Bill> byCourseId = courseService.findByCourseName(courseName);
         if (byCourseId.isPresent()) {
