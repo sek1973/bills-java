@@ -20,18 +20,22 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedule/create")
-    public ResponseEntity<Object> create(@RequestBody Schedule schedule) {
+    public Schedule create(@RequestBody Schedule schedule) {
         return this.scheduleService.add(schedule);
     }
 
     @DeleteMapping("/schedule/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
-        return this.scheduleService.delete(id);
+        if (this.scheduleService.delete(id)) {
+            return ResponseEntity.ok(id);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/schedule/all")
-    public ResponseEntity<List<Schedule>> findAll() {
-        return ResponseEntity.ok(scheduleService.findAll());
+    public List<Schedule> findAll() {
+        return scheduleService.findAll();
     }
 
 }

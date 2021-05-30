@@ -25,8 +25,7 @@ public class BillService {
     }
 
     public Bill save(Bill bill){
-        billsRepository.save(bill);
-        return bill;
+        return billsRepository.save(bill);
     }
 
     @Transactional

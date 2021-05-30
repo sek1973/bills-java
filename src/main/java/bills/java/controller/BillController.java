@@ -15,12 +15,12 @@ public class BillController {
     }
 
     @PostMapping("/bill/create")
-    public ResponseEntity<Object> createRole(@RequestBody Bill bill) {
+    public ResponseEntity<Object> create(@RequestBody Bill bill) {
         return billService.add(bill);
     }
 
     @DeleteMapping("/bill/delete/{id}")
-    public ResponseEntity<Object> deleteRole(@PathVariable Long id) {
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
         return billService.delete(id);
     }
 
