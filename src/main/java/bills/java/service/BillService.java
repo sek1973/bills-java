@@ -52,8 +52,8 @@ public class BillService {
             return ResponseEntity.unprocessableEntity().body("No records found");
     }
 
-    public ResponseEntity<Object> findById(Long id) {
-
+    public Optional<Bill> findById(Long id) {
+        return billsRepository.findById(id);
     }
 
 }

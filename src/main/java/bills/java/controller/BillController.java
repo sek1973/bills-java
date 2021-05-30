@@ -31,9 +31,9 @@ public class BillController {
 
     @GetMapping("/bill/{id}")
     public ResponseEntity<Bill> findByBillId(@PathVariable Long id) {
-        Optional<Bill> byCourseId = billService.findById(id);
-        if (byCourseId.isPresent()) {
-            return ResponseEntity.ok(byCourseId.get());
+        Optional<Bill> result = billService.findById(id);
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
         } else {
             return ResponseEntity.notFound().build();
         }

@@ -9,5 +9,5 @@ import java.util.*;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
     @Query("SELECT p from Payment p where p.billId= :billId")
-    Optional<Schedule> getPaymentsByBillId(Long billId);
+    List<Payment> findByBillId(Long billId);
 }
