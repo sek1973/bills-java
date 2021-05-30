@@ -1,5 +1,7 @@
 package bills.java.controller;
 
+import bills.java.model.Schedule;
+import bills.java.service.ScheduleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import bills.java.model.Bill;
@@ -7,37 +9,29 @@ import bills.java.service.BillService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ScheduledExecutorService;
 
 @RestController
 public class ScheduleController {
-    private BillService courseService;
-    public ScheduleController(BillService courseService) {
-        this.courseService = courseService;
+    private ScheduleService scheduleService;
+
+    public ScheduleController(ScheduleService scheduleService) {
+        this.scheduleService = scheduleService;
     }
 
     @PostMapping("/schedule/create")
-    public ResponseEntity<Object> createRole(@RequestBody Bill bill) {
-        return  courseService.add(bill);
+    public ResponseEntity<Object> create(@RequestBody Schedule schedule) {
+        return this.scheduleService.add(schedule);
     }
 
     @DeleteMapping("/schedule/delete/{id}")
-    public ResponseEntity<Object> deleteRole(@PathVariable Long id) {
-        return courseService.delete(id);
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+        return this.scheduleService.delete(id);
     }
 
     @GetMapping("/schedule/all")
-    public ResponseEntity<List<Bill>> findAllCourses() {
-        return ResponseEntity.ok(courseService.findAll());
-    }
-
-    @GetMapping("/schedule/{courseName}")
-    public ResponseEntity<Bill> findByCourseId(@PathVariable String courseName) {
-        Optional<Bill> byCourseId = courseService.findByCourseName(courseName);
-        if (byCourseId.isPresent()) {
-            return ResponseEntity.ok(byCourseId.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<List<Schedule>> findAll() {
+        return ResponseEntity.ok(scheduleService.findAll());
     }
 
 }
