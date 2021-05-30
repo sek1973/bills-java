@@ -2,7 +2,7 @@ package bills.java.service;
 
 import bills.java.model.Bill;
 import bills.java.model.Schedule;
-import bills.java.repository.StudentRepository;
+import bills.java.repository.PaymentRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
 
@@ -12,24 +12,24 @@ import java.util.*;
 @Service
 public class PaymentService {
 
-    StudentRepository studentRepository;
+    PaymentRepository paymentRepository;
     BillService billService;
 
-    public PaymentService(StudentRepository studentRepository, BillService billService) {
-        this.studentRepository = studentRepository;
+    public PaymentService(PaymentRepository paymentRepository, BillService billService) {
+        this.paymentRepository = paymentRepository;
         this.billService = billService;
     }
 
     public List<Schedule> findAll(){
-        return studentRepository.findAll();
+        return paymentRepository.findAll();
     }
 
     public Optional<Schedule> findById(Long id){
-        return studentRepository.findById(id);
+        return paymentRepository.findById(id);
     }
 
     public Optional<Schedule> findByStudentId(String studentId){
-        return studentRepository.findByStudentId(studentId);
+        return paymentRepository.findByStudentId(studentId);
     }
 
     @Transactional
@@ -42,16 +42,16 @@ public class PaymentService {
         if (course.isPresent()) {
             newSchedule.setCourse(course.get());
         }
-        Schedule savedSchedule = studentRepository.save(newSchedule);
+        Schedule savedSchedule = paymentRepository.save(newSchedule);
 
-        if (studentRepository.findById(savedSchedule.getId()).isPresent()) {
+        if (paymentRepository.findById(savedSchedule.getId()).isPresent()) {
             return ResponseEntity.accepted().body("Successfully created student and course");
         } else
             return ResponseEntity.unprocessableEntity().body("Failed to create specified student");
     }
 
     public Optional<Schedule> findStudentByCourse(String courseName){
-        return studentRepository.getStudentByCourseName(courseName);
+        return paymentRepository.getStudentByCourseName(courseName);
     }
 
 

@@ -1,8 +1,8 @@
 package bills.java.service;
 
 import bills.java.model.Bill;
-import bills.java.repository.CourseRepository;
-import bills.java.repository.StudentRepository;
+import bills.java.repository.BillsRepository;
+import bills.java.repository.PaymentRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
 
@@ -12,20 +12,20 @@ import java.util.*;
 @Service
 public class BillService {
 
-    CourseRepository courseRepository;
-    StudentRepository studentRepository;
+    BillsRepository billsRepository;
+    PaymentRepository paymentRepository;
 
-    public BillService(CourseRepository courseRepository, StudentRepository studentRepository) {
-        this.courseRepository = courseRepository;
-        this.studentRepository = studentRepository;
+    public BillService(BillsRepository billsRepository, PaymentRepository paymentRepository) {
+        this.billsRepository = billsRepository;
+        this.paymentRepository = paymentRepository;
     }
 
     public List<Bill> findAll(){
-        return courseRepository.findAll();
+        return billsRepository.findAll();
     }
 
     public Bill save(Bill bill){
-        courseRepository.save(bill);
+        billsRepository.save(bill);
         return bill;
     }
 
@@ -34,22 +34,26 @@ public class BillService {
         Bill newBill = new Bill();
         newBill.setName(bill.getName());
         newBill.setSchedules(bill.getSchedules());
-        Bill savedBill = courseRepository.save(newBill);
+        Bill savedBill = billsRepository.save(newBill);
 
-        if (courseRepository.findById(savedBill.getId()).isPresent()) {
+        if (billsRepository.findById(savedBill.getId()).isPresent()) {
             return ResponseEntity.accepted().body("Successfully Created Course and Students");
         } else
             return ResponseEntity.unprocessableEntity().body("Failed to Create specified Course");
     }
 
     public ResponseEntity<Object> delete(Long id) {
-        if (courseRepository.findById(id).isPresent()) {
-            courseRepository.deleteById(id);
-            if (courseRepository.findById(id).isPresent()) {
+        if (billsRepository.findById(id).isPresent()) {
+            billsRepository.deleteById(id);
+            if (billsRepository.findById(id).isPresent()) {
                 return ResponseEntity.unprocessableEntity().body("Failed to delete the specified record");
             } else return ResponseEntity.ok().body("Successfully deleted specified record");
         } else
             return ResponseEntity.unprocessableEntity().body("No records found");
+    }
+
+    public ResponseEntity<Object> findById(Long id) {
+
     }
 
 }
