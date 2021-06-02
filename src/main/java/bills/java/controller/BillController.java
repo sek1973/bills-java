@@ -14,22 +14,7 @@ public class BillController {
         this.billService = billService;
     }
 
-    @PostMapping("/bill/create")
-    public ResponseEntity<Object> create(@RequestBody Bill bill) {
-        return billService.add(bill);
-    }
-
-    @DeleteMapping("/bill/delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable Long id) {
-        return billService.delete(id);
-    }
-
-    @GetMapping("/bill/all")
-    public ResponseEntity<List<Bill>> findAll() {
-        return ResponseEntity.ok(billService.findAll());
-    }
-
-    @GetMapping("/bill/{id}")
+    @GetMapping("/bill/details/{id}")
     public ResponseEntity<Bill> findByBillId(@PathVariable Long id) {
         Optional<Bill> result = billService.findById(id);
         if (result.isPresent()) {
@@ -37,5 +22,24 @@ public class BillController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/bill/create")
+    public ResponseEntity<Object> create(@RequestBody Bill bill) {
+        return billService.add(bill);
+    }
+
+    @DeleteMapping("/bill/delete/{id}")
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+        if (billService.delete(id)) {
+            return ResponseEntity.ok(id);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/bill/all")
+    public ResponseEntity<List<Bill>> getAll() {
+        return ResponseEntity.ok(billService.findAll());
     }
 }

@@ -1,7 +1,6 @@
 package bills.java.controller;
 
 import bills.java.model.Payment;
-import bills.java.model.Schedule;
 import bills.java.service.PaymentService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -25,19 +24,28 @@ public class PaymentController {
         }
     }
 
+    @PostMapping("/payment/create")
+    public Payment create(@RequestBody Payment payment) {
+        return paymentService.add(payment);
+    }
+
+    @DeleteMapping("/schedule/delete/{id}")
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+        if (paymentService.delete(id)) {
+            return ResponseEntity.ok(id);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @GetMapping("/payment/all")
-    public List<Payment> getPayments() {
+    public List<Payment> getAll() {
         return paymentService.findAll();
     }
 
     @GetMapping("/payment/bill/{id}")
-    public List<Payment> getPaymentsForBill(@PathVariable Long id) {
+    public List<Payment> getAllForBill(@PathVariable Long id) {
         return paymentService.findByBillId(id);
-    }
-
-    @PostMapping("/payment/create")
-    public ResponseEntity<Object> createStudent(@RequestBody Payment payment) {
-        return  paymentService.addPayment(payment);
     }
 
 }

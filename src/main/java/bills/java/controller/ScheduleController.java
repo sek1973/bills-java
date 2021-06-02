@@ -1,5 +1,6 @@
 package bills.java.controller;
 
+import bills.java.model.Payment;
 import bills.java.model.Schedule;
 import bills.java.service.ScheduleService;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,15 @@ import java.util.concurrent.ScheduledExecutorService;
 public class ScheduleController {
     private ScheduleService scheduleService;
 
-    public ScheduleController(ScheduleService scheduleService) {
-        this.scheduleService = scheduleService;
+    public ScheduleController(ScheduleService scheduleService) { this.scheduleService = scheduleService; }
+
+    @GetMapping("/schedule/details/{id}")
+    public Schedule getPayment(@PathVariable Long id) {
+        if(scheduleService.findById(id).isPresent()) {
+            return scheduleService.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     @PostMapping("/schedule/create")
@@ -34,8 +42,11 @@ public class ScheduleController {
     }
 
     @GetMapping("/schedule/all")
-    public List<Schedule> findAll() {
-        return scheduleService.findAll();
+    public List<Schedule> getAll() { return scheduleService.findAll(); }
+
+    @GetMapping("/payment/bill/{id}")
+    public List<Schedule> getAllForBill(@PathVariable Long id) {
+        return scheduleService.findByBillId(id);
     }
 
 }

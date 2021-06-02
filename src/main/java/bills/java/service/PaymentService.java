@@ -1,6 +1,7 @@
 package bills.java.service;
 
 import bills.java.model.Payment;
+import bills.java.model.Schedule;
 import bills.java.repository.PaymentRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
@@ -31,13 +32,15 @@ public class PaymentService {
         return paymentRepository.findByBillId(id);
     }
 
-    @Transactional
-    public ResponseEntity<Object> addPayment(Payment payment) {
-        Payment savedPayment = paymentRepository.save(payment);
-        if (paymentRepository.findById(savedPayment.getId()).isPresent()) {
-            return ResponseEntity.accepted().body("Successfully created new payment");
-        } else
-            return ResponseEntity.unprocessableEntity().body("Failed to create specified payment");
+    public Boolean delete (Long id) {
+        Optional<Payment> result = paymentRepository.findById(id);
+        if (result.isPresent()) {
+            paymentRepository.delete(result.get());
+            return true;
+        }
+        return false;
     }
+
+    public Payment add(Payment payment) { return paymentRepository.save(payment); }
 
 }

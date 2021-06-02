@@ -1,6 +1,7 @@
 package bills.java.service;
 
 import bills.java.model.Bill;
+import bills.java.model.Schedule;
 import bills.java.repository.BillsRepository;
 import bills.java.repository.PaymentRepository;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,6 @@ public class BillService {
         return billsRepository.save(bill);
     }
 
-    @Transactional
     public ResponseEntity<Object> add(Bill bill) {
         Bill newBill = new Bill();
         newBill.setName(bill.getName());
@@ -41,14 +41,13 @@ public class BillService {
             return ResponseEntity.unprocessableEntity().body("Failed to Create specified Course");
     }
 
-    public ResponseEntity<Object> delete(Long id) {
-        if (billsRepository.findById(id).isPresent()) {
-            billsRepository.deleteById(id);
-            if (billsRepository.findById(id).isPresent()) {
-                return ResponseEntity.unprocessableEntity().body("Failed to delete the specified record");
-            } else return ResponseEntity.ok().body("Successfully deleted specified record");
-        } else
-            return ResponseEntity.unprocessableEntity().body("No records found");
+    public Boolean delete(Long id) {
+        Optional<Bill> result = billsRepository.findById(id);
+        if (result.isPresent()) {
+            billsRepository.delete(result.get());
+            return true;
+        }
+        return false;
     }
 
     public Optional<Bill> findById(Long id) {

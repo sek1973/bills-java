@@ -22,13 +22,9 @@ public class ScheduleService {
         this.billService = billService;
     }
 
-    public List<Schedule> findAll(){
-        return scheduleRepository.findAll();
-    }
+    public List<Schedule> findAll(){ return scheduleRepository.findAll(); }
 
-    public Optional<Schedule> findById(Long id){
-        return scheduleRepository.findById(id);
-    }
+    public Optional<Schedule> findById(Long id){ return scheduleRepository.findById(id); }
 
     public List<Schedule> findByBillId(Long id){
         return scheduleRepository.findByBillId(id);
@@ -47,7 +43,6 @@ public class ScheduleService {
         return scheduleRepository.save(schedule);
     }
 
-    @Transactional
     public ResponseEntity<Object> addSchedule(Schedule schedule) {
         Schedule savedSchedule = scheduleRepository.save(schedule);
         if (scheduleRepository.findById(savedSchedule.getId()).isPresent()) {
