@@ -19,15 +19,18 @@ public class Bill {
     private Currency sum;
     private Float share;
     private Date deadline;
+    @Column(name = "repeatEvery")
     private Integer repeat;
     private Integer unit;
     private Date reminder;
 
-    @OneToMany(mappedBy = "bill")
-    private List<Payment> payments = new ArrayList<Payment>();
-
-    @OneToMany(mappedBy = "bill")
+    @OneToMany()
+    @JoinColumn(referencedColumnName="id", name="billId")
     private List<Schedule> schedules = new ArrayList<Schedule>();
+
+    @OneToMany()
+    @JoinColumn(referencedColumnName="id", name="billId")
+    private List<Payment> payments = new ArrayList<Payment>();
 
     public Bill() { }
 

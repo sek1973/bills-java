@@ -14,16 +14,14 @@ public class Schedule {
     private Long id;
     private Date date;
     private Currency sum;
-    public String remarks;
-    public Long billId;
-
+    private String remarks;
+    @Column(insertable = false,updatable = false)
+    private Long billId;
+    @ManyToOne()
+    @JoinColumn(name = "billId")
     private Bill bill;
 
-    public Schedule() { }
-
-    @ManyToOne
-    public Bill getBill() { return bill; }
-    public void setBill(Bill val) { this.bill = val; }
+    public Schedule(Long billId) { }
 
     public Long getId() {
         return id;
@@ -49,4 +47,10 @@ public class Schedule {
         return billId;
     }
     public void setBillId(Long val) { this.billId = val; }
+
+    public Bill getBill() {
+        return bill;
+    }
+    public void setBill(Bill val) { this.bill = val; }
+
 }

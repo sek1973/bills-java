@@ -16,16 +16,14 @@ public class Payment {
     private Currency sum;
     private Currency share;
     private Date paidDate;
-    public String remarks;
-    public Long billId;
-
+    private String remarks;
+    @Column(insertable = false,updatable = false)
+    private Long billId;
+    @ManyToOne
+    @JoinColumn(name = "billId")
     private Bill bill;
 
-    public Payment() { }
-
-    @ManyToOne
-    public Bill getBill() { return bill; }
-    public void setBill(Bill val) { this.bill = val; }
+    public Payment(Long billId) { }
 
     public Long getId() {
         return id;
@@ -61,6 +59,11 @@ public class Payment {
         return billId;
     }
     public void setBillId(Long val) { this.billId = val; }
+
+    public Bill getBill() {
+        return bill;
+    }
+    public void setBill(Bill val) { this.bill = val; }
 
 }
 
