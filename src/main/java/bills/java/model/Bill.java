@@ -7,7 +7,7 @@ import java.util.*;
 @Table
 public class Bill {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     private Long lp;
     private String name;
