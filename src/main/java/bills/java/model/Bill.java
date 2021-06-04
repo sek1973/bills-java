@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@Table
 public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,21 +23,13 @@ public class Bill {
     private Integer unit;
     private Date reminder;
 
-    @OneToMany(targetEntity = Schedule.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bill")
     private List<Payment> payments;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bill")
     private List<Schedule> schedules;
 
     public Bill() { }
-
-    public Bill(String name) {
-        this.name = name;
-    }
-
-    public Bill(String name, List<Schedule> schedules) {
-        this.name = name;
-        this.schedules = schedules;
-    }
 
     public Long getId() {
         return id;

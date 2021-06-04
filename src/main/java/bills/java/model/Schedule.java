@@ -7,6 +7,7 @@ import java.util.Currency;
 import java.util.Date;
 
 @Entity
+@Table
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +17,8 @@ public class Schedule {
     public String remarks;
     public Long billId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "billId", insertable = false, updatable = false)
     @JsonIgnore
     private Bill bill;
 
