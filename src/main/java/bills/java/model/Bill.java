@@ -23,11 +23,11 @@ public class Bill {
     private Integer unit;
     private Date reminder;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bill")
-    private List<Payment> payments;
+    @OneToMany(mappedBy = "bill")
+    private List<Payment> payments = new ArrayList<Payment>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bill")
-    private List<Schedule> schedules;
+    @OneToMany(mappedBy = "bill")
+    private List<Schedule> schedules = new ArrayList<Schedule>();
 
     public Bill() { }
 

@@ -17,12 +17,13 @@ public class Schedule {
     public String remarks;
     public Long billId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "billId", insertable = false, updatable = false)
-    @JsonIgnore
     private Bill bill;
 
     public Schedule() { }
+
+    @ManyToOne
+    public Bill getBill() { return bill; }
+    public void setBill(Bill val) { this.bill = val; }
 
     public Long getId() {
         return id;
