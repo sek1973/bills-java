@@ -8,6 +8,6 @@ import org.springframework.stereotype.*;
 import java.util.*;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
-    @Query("SELECT p from Payment p where p.billId= :billId")
+    @Query(value = "select p from payment p where p.billId = :billId", nativeQuery = true)
     List<Payment> findByBillId(Long billId);
 }

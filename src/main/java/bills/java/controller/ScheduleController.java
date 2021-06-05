@@ -44,7 +44,7 @@ public class ScheduleController {
     @GetMapping("/schedule/all")
     public List<Schedule> getAll() { return scheduleService.findAll(); }
 
-    @GetMapping("/payment/bill/{id}")
+    @GetMapping("/schedule/bill/{id}")
     public List<Schedule> getAllForBill(@PathVariable Long id) {
         return scheduleService.findByBillId(id);
     }

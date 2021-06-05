@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-    @Query("SELECT s from Schedule s where s.billId = :billId")
+    @Query(value = "select s from schedule s where s.billId = :billId", nativeQuery = true)
     List<Schedule> findByBillId(Long billId);
 }

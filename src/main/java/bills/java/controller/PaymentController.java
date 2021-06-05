@@ -29,7 +29,7 @@ public class PaymentController {
         return paymentService.add(payment);
     }
 
-    @DeleteMapping("/schedule/delete/{id}")
+    @DeleteMapping("/payment/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         if (paymentService.delete(id)) {
             return ResponseEntity.ok(id);

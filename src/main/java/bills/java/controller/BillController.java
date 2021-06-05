@@ -1,6 +1,7 @@
 package bills.java.controller;
 
 import bills.java.model.Bill;
+import bills.java.model.Payment;
 import bills.java.service.BillService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
 public class BillController {
     private BillService billService;
     public BillController(BillService billService) {
@@ -39,7 +41,6 @@ public class BillController {
     }
 
     @GetMapping("/bill/all")
-    public ResponseEntity<List<Bill>> getAll() {
-        return ResponseEntity.ok(billService.findAll());
-    }
+    public List<Bill> getAll() { return billService.findAll(); }
+
 }
