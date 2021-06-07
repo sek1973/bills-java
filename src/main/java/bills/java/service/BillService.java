@@ -22,7 +22,8 @@ public class BillService {
     }
 
     public List<Bill> findAll(){
-        return billsRepository.findAll();
+        List<Bill> result = billsRepository.findAll();
+        return result;
     }
 
     public Bill save(Bill bill){
@@ -36,9 +37,9 @@ public class BillService {
         Bill savedBill = billsRepository.save(newBill);
 
         if (billsRepository.findById(savedBill.getId()).isPresent()) {
-            return ResponseEntity.accepted().body("Successfully Created Course and Students");
+            return ResponseEntity.accepted().body("Entity Successfully Created");
         } else
-            return ResponseEntity.unprocessableEntity().body("Failed to Create specified Course");
+            return ResponseEntity.unprocessableEntity().body("Failed to Create specified entity");
     }
 
     public Boolean delete(Long id) {
